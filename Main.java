@@ -50,7 +50,8 @@ public class Main {
         private float test3;
         private float finalExam;
 
-        public StudentCourse(String studentID, String courseID, float test1, float test2, float test3, float finalExam) {
+        public StudentCourse(String studentID, String courseID, float test1, float test2, float test3,
+                float finalExam) {
             super(studentID);
             this.courseID = courseID;
             this.test1 = test1;
@@ -195,9 +196,13 @@ public class Main {
             for (StudentCourse studentCourse : studentCourseArray) {
                 if (studentName.getStudentID().equals(studentCourse.getStudentID())) {
                     float finalGrade = ((studentCourse.getTest1() * 0.2f) + (studentCourse.getTest2() * 0.2f)
-                            + (studentCourse.getTest3() * 0.2f) + (studentCourse.getFinalExam() * 0.6f)); // Calculate the final grade
-                    studentOutputObjectArray.add(new StudentOutput(studentName.getStudentID(), studentName.getStudentName(),
-                            studentCourse.getCourseID(), finalGrade)); // Add new student output object containing the students information
+                            + (studentCourse.getTest3() * 0.2f) + (studentCourse.getFinalExam() * 0.6f)); // Calculate
+                                                                                                          // the final
+                                                                                                          // grade
+                    studentOutputObjectArray
+                            .add(new StudentOutput(studentName.getStudentID(), studentName.getStudentName(),
+                                    studentCourse.getCourseID(), finalGrade)); // Add new student output object
+                                                                               // containing the students information
                 }
             }
         }
@@ -222,7 +227,7 @@ public class Main {
         try {
             FileWriter myWriter = new FileWriter("StudentOutputFile.txt");
             for (StudentOutput output : studentOutputArrayList) {
-                String writeString = String.format("%s, %s, %s, %.1f\n", 
+                String writeString = String.format("%s, %s, %s, %.1f\n",
                         output.getStudentID(), output.getStudentName(), output.getCourseID(), output.getFinalGrade());
                 myWriter.write(writeString);
             }
@@ -232,6 +237,11 @@ public class Main {
             System.out.println("An error occurred while writing to the file.");
             e.printStackTrace();
         }
+    }
+
+    public static void sortStudentOutputArray(ArrayList<StudentOutput> studentOutputObjectArray) {
+        studentOutputObjectArray.sort((o1, o2) -> o1.getStudentID().compareTo(
+                o2.getStudentID()));
     }
 
     public static void main(String[] args) {
@@ -247,6 +257,8 @@ public class Main {
 
         ArrayList<StudentOutput> studentOutputObjectArray = createStudentOutputArray(studentNameObjectArray,
                 studentCourseObjectArray);
+
+        sortStudentOutputArray(studentOutputObjectArray);
         createOutputFile();
         writeOutputFile(studentOutputObjectArray);
     }
