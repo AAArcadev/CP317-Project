@@ -209,6 +209,14 @@ public class Main {
         return studentOutputObjectArray;
     }
 
+    // Function that sorts the StudentOutput array in descending order based on the studentID
+    public static void sortStudentOutputArray(ArrayList<StudentOutput> studentOutputObjectArray) {
+        studentOutputObjectArray.sort((o1, o2) -> o1.getStudentID().compareTo(
+                o2.getStudentID()));
+    }
+
+
+    // Creates the output file
     public static void createOutputFile() {
         try {
             File myObj = new File("StudentOutputFile.txt");
@@ -223,6 +231,7 @@ public class Main {
         }
     }
 
+    // Writes to the output file
     public static void writeOutputFile(ArrayList<StudentOutput> studentOutputArrayList) {
         try {
             FileWriter myWriter = new FileWriter("StudentOutputFile.txt");
@@ -237,11 +246,6 @@ public class Main {
             System.out.println("An error occurred while writing to the file.");
             e.printStackTrace();
         }
-    }
-
-    public static void sortStudentOutputArray(ArrayList<StudentOutput> studentOutputObjectArray) {
-        studentOutputObjectArray.sort((o1, o2) -> o1.getStudentID().compareTo(
-                o2.getStudentID()));
     }
 
     public static void main(String[] args) {
